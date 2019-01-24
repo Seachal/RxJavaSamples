@@ -64,6 +64,7 @@ public class TokenAdvancedFragment extends BaseFragment {
                             public Observable<?> apply(Throwable throwable) {
                                 if (throwable instanceof IllegalArgumentException || throwable instanceof NullPointerException) {
                                     return fakeApi.getFakeToken("fake_auth_code")
+//                                            getFakeToken（Observable） 调用onNext后才会执行执行doOnNext
                                             .doOnNext(new Consumer<FakeToken>() {
                                                 @Override
                                                 public void accept(FakeToken fakeToken) {
