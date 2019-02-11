@@ -27,6 +27,7 @@ public class Data {
     private static final int DATA_SOURCE_MEMORY = 1;
     private static final int DATA_SOURCE_DISK = 2;
     private static final int DATA_SOURCE_NETWORK = 3;
+//  seachal  annotation  Android中提供的一种注解，用于替代枚举的使用
     @IntDef({DATA_SOURCE_MEMORY, DATA_SOURCE_DISK, DATA_SOURCE_NETWORK}) @interface DataSource {}
 
     BehaviorSubject<List<Item>> cache;

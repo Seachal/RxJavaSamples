@@ -16,11 +16,14 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.List;
 
+
+// seachal  annotation  io操作消耗大，使用单例模式
 public class Database {
     private static String DATA_FILE_NAME = "data.db";
 
     private static Database INSTANCE;
 
+//    seachal annotation： 新建一个文件
     File dataFile = new File(App.getInstance().getFilesDir(), DATA_FILE_NAME);
     Gson gson = new Gson();
 
@@ -34,6 +37,7 @@ public class Database {
         return INSTANCE;
     }
 
+//    seachal annotaion 写
     public List<Item> readItems() {
         // Hard code adding some delay, to distinguish reading from memory and reading disk clearly
         try {
@@ -51,6 +55,7 @@ public class Database {
         }
     }
 
+//    seachal annotaion 写
     public void writeItems(List<Item> items) {
         String json = gson.toJson(items);
         try {

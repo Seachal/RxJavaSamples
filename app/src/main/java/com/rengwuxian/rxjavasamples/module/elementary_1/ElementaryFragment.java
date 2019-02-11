@@ -52,16 +52,26 @@ public class ElementaryFragment extends BaseFragment {
         }
     };
 
+    /**
+     * seachal annotation butterknife
+     * @param searchRb
+     * @param checked
+     */
     @OnCheckedChanged({R.id.searchRb1, R.id.searchRb2, R.id.searchRb3, R.id.searchRb4})
     void onTagChecked(RadioButton searchRb, boolean checked) {
         if (checked) {
             unsubscribe();
             adapter.setImages(null);
             swipeRefreshLayout.setRefreshing(true);
+//      seachal  annotation        从
             search(searchRb.getText().toString());
         }
     }
 
+    /**
+     * seachal annotation  被 radiobutton 切换时调用
+     * @param key
+     */
     private void search(String key) {
         subscription = Network.getZhuangbiApi()
                 .search(key)

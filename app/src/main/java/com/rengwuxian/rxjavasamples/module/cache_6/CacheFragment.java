@@ -34,6 +34,7 @@ public class CacheFragment extends BaseFragment {
     ItemListAdapter adapter = new ItemListAdapter();
     private long startingTime;
 
+
     @OnClick(R.id.clearMemoryCacheBt)
     void clearMemoryCache() {
         Data.getInstance().clearMemoryCache();
