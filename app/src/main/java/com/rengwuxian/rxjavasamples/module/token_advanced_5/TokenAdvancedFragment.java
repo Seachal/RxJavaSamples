@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,10 @@ import rx.schedulers.Schedulers;
 
 public class TokenAdvancedFragment extends BaseFragment {
 
-    @BindView(R.id.tokenTv) TextView tokenTv;
-    @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.tokenTv)
+    TextView tokenTv;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
     final FakeToken cachedFakeToken = new FakeToken(true);
     boolean tokenUpdated;
 
@@ -64,9 +67,11 @@ public class TokenAdvancedFragment extends BaseFragment {
                             public Observable<?> call(Throwable throwable) {
                                 if (throwable instanceof IllegalArgumentException || throwable instanceof NullPointerException) {
                                     return fakeApi.getFakeToken("fake_auth_code")
+                                            // seahcal  annotation：doOnNext（） 在 onNext()方法前执行，
                                             .doOnNext(new Action1<FakeToken>() {
                                                 @Override
                                                 public void call(FakeToken fakeToken) {
+                                                    Log.i("TAG-doOnNext:", fakeToken.token);
                                                     tokenUpdated = true;
                                                     cachedFakeToken.token = fakeToken.token;
                                                     cachedFakeToken.expired = fakeToken.expired;
@@ -83,6 +88,7 @@ public class TokenAdvancedFragment extends BaseFragment {
                 .subscribe(new Action1<FakeThing>() {
                     @Override
                     public void call(FakeThing fakeData) {
+                        Log.i("TAG-Action1FakeThing:", fakeData.toString());
                         swipeRefreshLayout.setRefreshing(false);
                         String token = cachedFakeToken.token;
                         if (tokenUpdated) {
@@ -93,6 +99,7 @@ public class TokenAdvancedFragment extends BaseFragment {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
+                        Log.i("TAG-Action1Throwable:", throwable.toString());
                         swipeRefreshLayout.setRefreshing(false);
                         Toast.makeText(getActivity(), R.string.loading_failed, Toast.LENGTH_SHORT).show();
                     }
@@ -119,3 +126,6 @@ public class TokenAdvancedFragment extends BaseFragment {
         return R.string.title_token_advanced;
     }
 }
+
+/* 通过log 感觉 doOnNext 先于 doOnNext 执行
+ * */

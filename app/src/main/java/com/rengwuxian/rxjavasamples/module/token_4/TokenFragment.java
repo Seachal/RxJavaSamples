@@ -39,6 +39,7 @@ public class TokenFragment extends BaseFragment {
         unsubscribe();
         final FakeApi fakeApi = Network.getFakeApi();
         subscription = fakeApi.getFakeToken("fake_auth_code")
+//         seachal annotation： flatMap作用：fakeApi.getFakeToken ，fakeApi.getFakeData(fakeToken)
                 .flatMap(new Func1<FakeToken, Observable<FakeThing>>() {
                     @Override
                     public Observable<FakeThing> call(FakeToken fakeToken) {
